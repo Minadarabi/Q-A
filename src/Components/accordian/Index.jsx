@@ -4,26 +4,29 @@ import "./styles.css";
 
 
 
-
-
-
 export const Index = () => {
 
     const [selected , setSelected] = useState(null);
+    const [multipled , setMultipled] = useState([])
 
   return (
+   <>
+   <h1>React Q&A</h1>
+  
     <div className="container">
 
         
             {
             data && data.length > 0 ? data.map((item)=>{
-                return (<div key={item.id}>
+                const isOpen = selected === item.id
+                const toggle = isOpen ? null : item.id
+                return (<div className="qa" key={item.id}>
                     <ul>
-                        <li className="question" onClick={()=> {setSelected(item.id)}}>{item.question}
+                        <li className="question" onClick={()=> {setSelected(toggle)}}>{item.question}
                         <span>+</span>
                         </li>
                         </ul>
-                        {selected === item.id && <div className="answer">
+                        {isOpen && <div className="answer">
                             {item.answer}
                         </div> }
                      
@@ -36,5 +39,8 @@ export const Index = () => {
         
 
         </div>
+       
+        <button className="btn" onClick={}>Show Multiple answer</button>
+        </>
   )
 }
