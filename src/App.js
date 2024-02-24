@@ -1,6 +1,7 @@
 
 import './App.css';
-import {Index} from './Components/accordian/Index';
+import { Index } from './Components/accordian/Index';
+
 
 function App() {
   return (

@@ -7,7 +7,11 @@ import "./styles.css";
 export const Index = () => {
 
     const [selected , setSelected] = useState(null);
-    const [multipled , setMultipled] = useState([])
+    const [multipled , setMultipled] = useState([]);
+    const [showMultipleAnswer , setShowMultipleAnswer] = useState(false);
+
+   
+ 
 
   return (
    <>
@@ -22,12 +26,12 @@ export const Index = () => {
                 const toggle = isOpen ? null : item.id
                 return (<div className="qa" key={item.id}>
                     <ul>
-                        <li className="question" onClick={()=> {setSelected(toggle)}}>{item.question}
+                        <li className="question" onClick={()=> {setSelected(toggle)}}>Question:{item.question}
                         <span>+</span>
                         </li>
                         </ul>
                         {isOpen && <div className="answer">
-                            {item.answer}
+                         Answer:{item.answer}
                         </div> }
                      
                     
@@ -35,12 +39,14 @@ export const Index = () => {
 
             }) : 
             (<div>No Data found</div>)
+            
             }
         
 
         </div>
        
-        <button className="btn" onClick={}>Show Multiple answer</button>
+        <button className="btn" onClick={()=>{setShowMultipleAnswer((prev)=> !prev)}}>
+            {showMultipleAnswer && multipled ? "Show Single Answer" : "Show Multiple Answers"}</button>
         </>
   )
 }
