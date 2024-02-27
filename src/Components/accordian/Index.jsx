@@ -22,11 +22,33 @@ export const Index = () => {
         
             {
             data && data.length > 0 ? data.map((item)=>{
-                const isOpen = selected === item.id
-                const toggle = isOpen ? null : item.id
+                let isOpen = false;
+                if(showMultipleAnswer === true &&  multipled.indexOf(item.id) > -1){
+                   isOpen = true
+                }
+                if(showMultipleAnswer === false && selected === item.id){
+                    isOpen = true;
+                }
+
+
+
+ 
                 return (<div className="qa" key={item.id}>
                     <ul>
-                        <li className="question" onClick={()=> {setSelected(toggle)}}>Question:{item.question}
+                        <li className="question" onClick={()=> {
+                            if(showMultipleAnswer === false){
+                                setSelected(isOpen ? null : item.id)
+                            }else{
+                                setMultipled((prev)=>{
+                                    if(prev.indexOf(item.id) > -1){
+                                        const newSelected = prev.splice(prev.indexOf(item.id), 0)
+                                        return newSelected
+                                    }
+                                    return [...prev , item.id] 
+                                })
+                            }
+                            
+                            }}>Question:{item.question}
                         <span>+</span>
                         </li>
                         </ul>
@@ -45,8 +67,12 @@ export const Index = () => {
 
         </div>
        
-        <button className="btn" onClick={()=>{setShowMultipleAnswer((prev)=> !prev)}}>
-            {showMultipleAnswer && multipled ? "Show Single Answer" : "Show Multiple Answers"}</button>
+        <button className="btn" onClick={()=>{
+                setShowMultipleAnswer((prev)=> !prev)
+                setSelected(null)
+                setMultipled([])
+            }}>
+            {showMultipleAnswer ? "Show Single Answer" : "Show Multiple Answers"}</button>
         </>
   )
 }
